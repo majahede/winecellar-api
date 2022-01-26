@@ -2,6 +2,7 @@
   "name": "api-design-assignment",
   "version": "1.0.0",
   "description": "1DV027 - Assignment - API Design",
+  "type": "module",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
