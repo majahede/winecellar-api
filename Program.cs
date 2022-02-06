@@ -1,10 +1,13 @@
 using api_design_assignment.Models;
+using api_design_assignment.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<WineCellarDatabaseSettings>(
     builder.Configuration.GetSection("WineCellarDatabase"));
+
+  builder.Services.AddSingleton<WinesService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
