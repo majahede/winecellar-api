@@ -6,33 +6,35 @@ namespace api_design_assignment.Services;
 
 public class WinesService
 {
-    private readonly IMongoCollection<Wine> _winesCollection;
+    private readonly IMongoCollection<Wine> _wines;
 
-    public WinesService(
-        IOptions<WineCellarDatabaseSettings> wineCellarDatabaseSettings)
+    public WinesService(IOptions<WineCellarDatabaseSettings> settings)
     {
         var mongoClient = new MongoClient(
-            wineCellarDatabaseSettings.Value.ConnectionString);
+            settings.Value.ConnectionString);
 
-       var mongoDatabase = mongoClient.GetDatabase(
-      wineCellarDatabaseSettings.Value.DatabaseName);
+     //   var mongoDatabase = mongoClient.GetDatabase(
+    //   settings.Value.DatabaseName);
 
-       _winesCollection = mongoDatabase.GetCollection<Wine>(
-           wineCellarDatabaseSettings.Value.WineCollectionName);
+   //     _winesCollection = mongoDatabase.GetCollection<Wine>(
+    //        settings.Value.WineCollectionName);
+
+        _wines = mongoClient.GetDatabase(settings.Value.DatabaseName)
+            .GetCollection<Wine>(settings.Value.WineCollectionName);
     }
 
     public async Task<List<Wine>> GetAsync() =>
-        await _winesCollection.Find(_ => true).ToListAsync();
+        await _wines.Find(_ => true).ToListAsync();
 
     public async Task<Wine?> GetAsync(string id) =>
-        await _winesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        await _wines.Find(x => x.Id == id).FirstOrDefaultAsync();
 
     public async Task CreateAsync(Wine newWine) =>
-        await _winesCollection.InsertOneAsync(newWine);
+        await _wines.InsertOneAsync(newWine);
 
     public async Task UpdateAsync(string id, Wine updatedWine) =>
-        await _winesCollection.ReplaceOneAsync(x => x.Id == id, updatedWine);
+        await _wines.ReplaceOneAsync(x => x.Id == id, updatedWine);
 
     public async Task RemoveAsync(string id) =>
-        await _winesCollection.DeleteOneAsync(x => x.Id == id);
+        await _wines.DeleteOneAsync(x => x.Id == id);
 }

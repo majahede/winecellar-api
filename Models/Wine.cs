@@ -6,26 +6,26 @@ namespace api_design_assignment.Models
 {
     public class Wine
     {
-      [BsonId]
-      [BsonRepresentation(BsonType.ObjectId)]
-      public string? Id { get; set; }
-      
-      public string? userId { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
 
-      [BsonElement("Name")]
-      [JsonPropertyName("Name")]
-      public string WineName { get; set; } = null!;
+        public string? userId { get; set; }
 
-      public decimal Price { get; set; }
+        [BsonElement("Name")]
+        [JsonPropertyName("Name")]
+        public string WineName { get; set; } = null!;
 
-      public string Type { get; set; } = null!;
+        public decimal Price { get; set; }
 
-      public string Grape { get; set; } = null!;
+        public string Type { get; set; } = null!;
 
-      public string Country { get; set; } = null!;
+        public string Grape { get; set; } = null!;
 
-      public string Region { get; set; } = null!;
+        public string Country { get; set; } = null!;
 
-      public string Producer { get; set; } = null!;
+        public string Region { get; set; } = null!;
+
+        public string Producer { get; set; } = null!;
     }
 }
