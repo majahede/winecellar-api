@@ -14,11 +14,11 @@ public class WinesService
         var mongoClient = new MongoClient(
             wineCellarDatabaseSettings.Value.ConnectionString);
 
-        var mongoDatabase = mongoClient.GetDatabase(
-            wineCellarDatabaseSettings.Value.DatabaseName);
+       var mongoDatabase = mongoClient.GetDatabase(
+      wineCellarDatabaseSettings.Value.DatabaseName);
 
-        _winesCollection = mongoDatabase.GetCollection<Wine>(
-            wineCellarDatabaseSettings.Value.WineCollectionName);
+       _winesCollection = mongoDatabase.GetCollection<Wine>(
+           wineCellarDatabaseSettings.Value.WineCollectionName);
     }
 
     public async Task<List<Wine>> GetAsync() =>

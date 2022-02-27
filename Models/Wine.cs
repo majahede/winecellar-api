@@ -9,6 +9,8 @@ namespace api_design_assignment.Models
       [BsonId]
       [BsonRepresentation(BsonType.ObjectId)]
       public string? Id { get; set; }
+      
+      public string? userId { get; set; }
 
       [BsonElement("Name")]
       [JsonPropertyName("Name")]
