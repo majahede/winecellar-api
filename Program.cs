@@ -8,6 +8,7 @@ builder.Services.Configure<WineCellarDatabaseSettings>(
     builder.Configuration.GetSection("WineCellarDatabase"));
 
 builder.Services.AddSingleton<WinesService>();
+builder.Services.AddSingleton<UserService>(); // addScoped?
 
 builder.Services.AddControllers()
   .AddJsonOptions(

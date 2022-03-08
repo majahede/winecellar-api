@@ -4,11 +4,11 @@ using MongoDB.Driver;
 
 namespace api_design_assignment.Services;
 
-public class UsersService
+public class UserService
 {
     private readonly IMongoCollection<User> _users;
 
-    public UsersService(IOptions<WineCellarDatabaseSettings> settings)
+    public UserService(IOptions<WineCellarDatabaseSettings> settings)
     {
         var mongoClient = new MongoClient(
             settings.Value.ConnectionString);

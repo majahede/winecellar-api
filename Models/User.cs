@@ -9,8 +9,10 @@ public class User
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    [BsonElement("Email")]
     public string Email { get; set; } = null!;
 
+    [BsonElement("Password")]
     public decimal Password { get; set; }
 
 }
