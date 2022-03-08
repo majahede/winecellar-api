@@ -12,7 +12,7 @@ public class UserService
     {
         var mongoClient = new MongoClient(
             settings.Value.ConnectionString);
-        
+
         _users = mongoClient.GetDatabase(settings.Value.DatabaseName)
             .GetCollection<User>(settings.Value.UserCollectionName);
     }

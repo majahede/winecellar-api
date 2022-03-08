@@ -7,7 +7,7 @@ namespace api_design_assignment.Models
         public string DatabaseName { get; set; } = null!;
 
         public string WineCollectionName { get; set; } = null!;
-        
+
         public string UserCollectionName { get; set; } = null!;
     }
 }

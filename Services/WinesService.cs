@@ -13,11 +13,11 @@ public class WinesService
         var mongoClient = new MongoClient(
             settings.Value.ConnectionString);
 
-     //   var mongoDatabase = mongoClient.GetDatabase(
-    //   settings.Value.DatabaseName);
+        //   var mongoDatabase = mongoClient.GetDatabase(
+        //   settings.Value.DatabaseName);
 
-   //     _winesCollection = mongoDatabase.GetCollection<Wine>(
-    //        settings.Value.WineCollectionName);
+        //     _winesCollection = mongoDatabase.GetCollection<Wine>(
+        //        settings.Value.WineCollectionName);
 
         _wines = mongoClient.GetDatabase(settings.Value.DatabaseName)
             .GetCollection<Wine>(settings.Value.WineCollectionName);

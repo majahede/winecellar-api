@@ -35,7 +35,7 @@ public class UserController : ControllerBase
     {
         await _userService.CreateAsync(user);
 
-        return CreatedAtAction(nameof(Get), new {id = user.Id}, user);
+        return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
     }
 
     [HttpPut("{id:length(24)}")]
