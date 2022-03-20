@@ -16,8 +16,15 @@ public class WinesController : ControllerBase
         _winesService = winesService;
 
     [HttpGet]
-    public async Task<List<Wine>> Get() =>
-        await _winesService.GetAsync();
+    public async Task<List<Wine>> Get()
+    {
+        var wines =   await _winesService.GetAsync();
+        
+        List<Wine> products = new List<Wine>();
+        wines.ForEach(wine => products.Add(CreateLinksForWine(wine)));
+                
+        return wines;
+    }
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<Wine>> Get(string id)
@@ -29,7 +36,7 @@ public class WinesController : ControllerBase
             return NotFound();
         }
 
-        return wine;
+        return Ok(CreateLinksForWine(wine));
     }
 
     [HttpPost]
@@ -70,5 +77,25 @@ public class WinesController : ControllerBase
         await _winesService.RemoveAsync(wine.Id);
 
         return NoContent();
+    }
+    
+    private Wine CreateLinksForWine(Wine wine)
+    {
+        var idObj = new { id = wine.Id };
+        
+        wine.Links.Add(
+            new Link($"https://localhost:3000/api/user/{idObj.id}", "self", "GET" )
+        );
+        
+        wine.Links.Add(
+            new Link($"https://localhost:3000/api/user/{idObj.id}", "update", "PUT" )
+        );
+        
+        wine.Links.Add(
+            new Link($"https://localhost:3000/api/user/{idObj.id}",
+                "delete",
+                "DELETE"));
+
+        return wine;
     }
 }

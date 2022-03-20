@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace api_design_assignment.Models
 {
-    public class Wine
+    public class Wine : LinkResourceBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
