@@ -12,9 +12,7 @@ services.Configure<WineCellarDatabaseSettings>(
     builder.Configuration.GetSection("WineCellarDatabase"));
 
 services.AddSingleton<WinesService>();
-services.AddSingleton<UserService>(); // addScoped?
-//builder.Services.AddScoped<WinesService>();
-//builder.Services.AddScoped<UserService>();
+services.AddSingleton<UserService>();
 
 services.AddAuthentication(x =>
 {
@@ -22,36 +20,19 @@ services.AddAuthentication(x =>
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(x =>
 {
-    
-    x.Authority = "https://localhost:3000";
-    
+    //x.Authority = "https://localhost:3000";
     x.RequireHttpsMetadata = false;
     x.SaveToken = true;
     x.TokenValidationParameters = new TokenValidationParameters
-    {   ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidIssuer = "TestIssuer",
+    {   ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateIssuerSigningKey = true,
-        ValidAudience = "TestAudience",
         IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtKey").ToString())),
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("keythatneedstobechanged")),
 
     };
 });
-/*
-const string allowedSpecificOrigins = "_AllowedSpecificOrigins";
-//services.AddCors(options => options.AddPolicy(allowedSpecificOrigins, builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
-services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(opt => opt.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtKey").ToString()))
-    });
-*/
+
 services.AddControllers()
   .AddJsonOptions(
         options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -71,8 +52,14 @@ if (app.Environment.IsDevelopment())
 
 //app.UseCors(allowedSpecificOrigins);
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+//app.MapControllers();
 app.MapGet("/", () => "Hello World!");
 app.Run();
