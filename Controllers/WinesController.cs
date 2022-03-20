@@ -1,9 +1,11 @@
 using api_design_assignment.Models;
 using api_design_assignment.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_design_assignment.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class WinesController : ControllerBase
