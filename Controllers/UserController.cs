@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_design_assignment.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/user")]
 public class UserController : ControllerBase
@@ -71,7 +71,7 @@ public class UserController : ControllerBase
         return NoContent();
     }
     
-    //[AllowAnonymous]
+    [AllowAnonymous]
     [Route("authenticate")]
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] User user)
