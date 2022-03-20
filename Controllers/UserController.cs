@@ -16,10 +16,10 @@ public class UserController : ControllerBase
         _userService = userService;
 
     [HttpGet]
-    public async Task<List<User>> Get() => await _userService.GetAsync();
+    public async Task<List<User>> GetAll() => await _userService.GetAsync();
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<User>> Get(string id)
+    [HttpGet("{id:length(24)}", Name = nameof(GetById))]
+    public async Task<ActionResult<User>> GetById(string id)
     {
         var user = await _userService.GetAsync(id);
 
