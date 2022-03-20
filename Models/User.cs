@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace api_design_assignment.Models;
 
-public class User
+public class User : LinkResourceBase
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

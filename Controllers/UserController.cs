@@ -10,14 +10,21 @@ namespace api_design_assignment.Controllers;
 [Route("api/user")]
 public class UserController : ControllerBase
 {
+
     private readonly UserService _userService;
 
-    public UserController(UserService userService) =>
+
+    public UserController(UserService userService)
+    {
         _userService = userService;
 
+    }
+    
     [HttpGet]
     public async Task<List<User>> GetAll() => await _userService.GetAsync();
 
+    
+    
     [HttpGet("{id:length(24)}", Name = nameof(GetById))]
     public async Task<ActionResult<User>> GetById(string id)
     {
@@ -27,8 +34,9 @@ public class UserController : ControllerBase
         {
             return NotFound();
         }
+        
 
-        return user;
+        return Ok(CreateLinksForUser(user));
     }
 
     [HttpPost]
@@ -36,7 +44,7 @@ public class UserController : ControllerBase
     {
         await _userService.CreateAsync(user);
 
-        return CreatedAtAction(nameof(Get), new { _id = user.Id }, user);
+        return CreatedAtAction(nameof(GetById), new { _id = user.Id }, user);
     }
 
     [HttpPut("{id:length(24)}")]
@@ -83,5 +91,16 @@ public class UserController : ControllerBase
             return Unauthorized();
 
         return Ok(new {token, user});
+    }
+    
+    private User CreateLinksForUser(User user)
+    {
+        var idObj = new { id = user.Id };
+        
+        user.Links.Add(
+            new Link($"https://localhost:3000/api/user/{idObj.id}", "self", "GET" )
+            );
+
+        return user;
     }
 }

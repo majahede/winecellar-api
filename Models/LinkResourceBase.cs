@@ -1,9 +1,8 @@
 namespace api_design_assignment.Models;
 
-public class LinkResourceBase
-{
-    public LinkResourceBase()
+
+    public abstract class LinkResourceBase
     {
+        public List<Link> Links { get; set; } = new List<Link>(); 
     }
-    public List<Link> Links { get; set; } = new List<Link>();
-}
+   
