@@ -16,18 +16,15 @@ public class WinesController : ControllerBase
         _winesService = winesService;
 
     [HttpGet]
-    public async Task<List<Wine>> Get()
+    public async Task<List<Wine>> GetAll()
     {
         var wines =   await _winesService.GetAsync();
         
-        List<Wine> products = new List<Wine>();
-        wines.ForEach(wine => products.Add(CreateLinksForWine(wine)));
-                
         return wines;
     }
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Wine>> Get(string id)
+    public async Task<ActionResult<Wine>> GetById(string id)
     {
         var wine = await _winesService.GetAsync(id);
 
@@ -40,11 +37,11 @@ public class WinesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Wine newWine)
+    public async Task<IActionResult> Post(Wine wine)
     {
-        await _winesService.CreateAsync(newWine);
+        await _winesService.CreateAsync(wine);
 
-        return CreatedAtAction(nameof(Get), new { id = newWine.Id }, newWine);
+        return CreatedAtAction(nameof(GetById), new { id = wine.Id }, wine);
     }
 
     [HttpPut("{id:length(24)}")]
@@ -81,18 +78,16 @@ public class WinesController : ControllerBase
     
     private Wine CreateLinksForWine(Wine wine)
     {
-        var idObj = new { id = wine.Id };
-        
         wine.Links.Add(
-            new Link($"https://localhost:3000/api/user/{idObj.id}", "self", "GET" )
+            new Link($"https://localhost:3000/api/user/{wine.Id}", "self", "GET" )
         );
         
         wine.Links.Add(
-            new Link($"https://localhost:3000/api/user/{idObj.id}", "update", "PUT" )
+            new Link($"https://localhost:3000/api/user/{wine.Id}", "update", "PUT" )
         );
         
         wine.Links.Add(
-            new Link($"https://localhost:3000/api/user/{idObj.id}",
+            new Link($"https://localhost:3000/api/user/{wine.Id}",
                 "delete",
                 "DELETE"));
 
