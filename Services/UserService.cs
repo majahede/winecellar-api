@@ -37,7 +37,7 @@ public class UserService
     public async Task RemoveAsync(string id) =>
         await _users.DeleteOneAsync(x => x.Id == id);
 
-    public string Authenticate(string email, string password)
+    public string? Authenticate(string email, string password)
     {
         var user = _users.Find(x => x.Email == email && x.Password == password).FirstOrDefault();
         //var user = GetAsync(id);
@@ -47,14 +47,13 @@ public class UserService
         var tokenHandler = new JwtSecurityTokenHandler();
 
         var tokenKey = Encoding.ASCII.GetBytes(key);
-        Console.WriteLine("50" + tokenKey);
-        
+
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new (JwtRegisteredClaimNames.Email, user.Email),
+                new (JwtRegisteredClaimNames.Sub, user.Id),
             }),
 
             Expires = DateTime.UtcNow.AddHours(1),
@@ -66,7 +65,6 @@ public class UserService
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        Console.WriteLine(token);
         return tokenHandler.WriteToken(token);
     }
 }

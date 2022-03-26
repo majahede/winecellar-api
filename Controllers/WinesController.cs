@@ -38,7 +38,7 @@ public class WinesController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> Post(Wine wine)
-    {
+    {  
         await _winesService.CreateAsync(wine);
 
         return CreatedAtAction(nameof(GetById), new { id = wine.Id }, wine);

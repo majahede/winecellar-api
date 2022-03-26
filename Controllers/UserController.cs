@@ -10,19 +10,15 @@ namespace api_design_assignment.Controllers;
 [Route("api/user")]
 public class UserController : ControllerBase
 {
-
     private readonly UserService _userService;
-
-
+    
     public UserController(UserService userService)
     {
         _userService = userService;
-
     }
     
     [HttpGet]
     public async Task<List<User>> GetAll() => await _userService.GetAsync();
-
     
     
     [HttpGet("{id:length(24)}", Name = nameof(GetById))]
@@ -35,7 +31,6 @@ public class UserController : ControllerBase
             return NotFound();
         }
         
-
         return Ok(CreateLinksForUser(user));
     }
 
@@ -84,13 +79,8 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] User user)
     {
-        Console.WriteLine("user" + user.Email);
         var token = _userService.Authenticate(user.Email, user.Password);
-        Console.WriteLine(token);
-        if (token == null)
-            return Unauthorized();
-
-        return Ok(new {token, user});
+        return token == null ? Unauthorized("Wrong email or password") : Ok(new {token});
     }
     
     private User CreateLinksForUser(User user)

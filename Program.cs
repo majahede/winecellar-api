@@ -2,17 +2,17 @@ using System.Text;
 using api_design_assignment.Models;
 using api_design_assignment.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
-// Add services to the container.
+
 services.Configure<WineCellarDatabaseSettings>(
     builder.Configuration.GetSection("WineCellarDatabase"));
 
 services.AddSingleton<WinesService>();
 services.AddSingleton<UserService>();
+services.AddSingleton<WebhookService>();
 
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(cfg =>
