@@ -1,6 +1,3 @@
-using System.Net;
-using System.Text;
-using System.Text.Json;
 using api_design_assignment.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -37,24 +34,10 @@ public class WinesService
         foreach (var h in hooks)
         { 
             var url = h.Url;
-            var request = WebRequest.Create(url);
-            request.Method = "POST";
-            
-            var json = JsonSerializer.Serialize(newWine);
-            byte[] byteArray = Encoding.UTF8.GetBytes(json);
-
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = byteArray.Length;
-
-            using var reqStream = request.GetRequestStream();
-            reqStream.Write(byteArray, 0, byteArray.Length);
-
-            using var response = request.GetResponse();
-
-            using var respStream = response.GetResponseStream();
-
-            using var reader = new StreamReader(respStream);
-            reader.ReadToEnd();
+            var data = JsonContent.Create(newWine);
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("secret", h.Secret);
+            await client.PostAsync(url, data);
         }
         await _wines.InsertOneAsync(newWine);
     }
