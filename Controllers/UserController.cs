@@ -34,12 +34,13 @@ public class UserController : ControllerBase
         return Ok(CreateLinksForUser(user));
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Create(User user)
     {
         await _userService.CreateAsync(user);
 
-        return CreatedAtAction(nameof(GetById), new { _id = user.Id }, user);
+        return CreatedAtAction(nameof(GetById), new { id = user.Id }, CreateLinksForUser(user));
     }
 
     [HttpPut("{id:length(24)}")]
@@ -90,6 +91,14 @@ public class UserController : ControllerBase
         user.Links.Add(
             new Link($"https://localhost:3000/api/user/{idObj.id}", "self", "GET" )
             );
+        user.Links.Add(
+            new Link($"https://localhost:3000/api/user/{user.Id}", "update", "PUT" )
+        );
+        
+        user.Links.Add(
+            new Link($"https://localhost:3000/api/user/{user.Id}",
+                "delete",
+                "DELETE"));
 
         return user;
     }

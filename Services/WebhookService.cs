@@ -14,7 +14,7 @@ public class WebhookService
             settings.Value.ConnectionString);
         
         _webhooks = mongoClient.GetDatabase(settings.Value.DatabaseName)
-            .GetCollection<Webhook>("webhooks");
+            .GetCollection<Webhook>(settings.Value.WebhookCollectionName);
     }
     
     public async Task RegisterWebhook(Webhook webhook) {

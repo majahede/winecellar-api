@@ -11,7 +11,7 @@ namespace api_design_assignment.Services;
 public class UserService
 {
     private readonly IMongoCollection<User> _users;
-    private readonly string key;
+    private string _key;
     public UserService(IOptions<WineCellarDatabaseSettings> settings)
     {
         var mongoClient = new MongoClient(
@@ -19,7 +19,8 @@ public class UserService
 
         _users = mongoClient.GetDatabase(settings.Value.DatabaseName)
             .GetCollection<User>(settings.Value.UserCollectionName);
-        key = "keythatneedstobechanged";
+
+        _key = settings.Value.JwtKey;
     }
 
     public async Task<List<User>> GetAsync() =>
@@ -40,13 +41,12 @@ public class UserService
     public string? Authenticate(string email, string password)
     {
         var user = _users.Find(x => x.Email == email && x.Password == password).FirstOrDefault();
-        //var user = GetAsync(id);
         if (user == null)
             return null;
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        var tokenKey = Encoding.ASCII.GetBytes(key);
+        var tokenKey = Encoding.ASCII.GetBytes(_key);
 
         var tokenDescriptor = new SecurityTokenDescriptor()
         {

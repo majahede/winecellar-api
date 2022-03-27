@@ -7,8 +7,13 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-services.Configure<WineCellarDatabaseSettings>(
-    builder.Configuration.GetSection("WineCellarDatabase"));
+var settingsSection = builder.Configuration.GetSection("WineCellarDatabase");
+
+services.Configure<WineCellarDatabaseSettings>(settingsSection);
+
+var settings = settingsSection.Get<WineCellarDatabaseSettings>();
+
+var key = Encoding.ASCII.GetBytes(settings.JwtKey);
 
 services.AddSingleton<WinesService>();
 services.AddSingleton<UserService>();
@@ -26,7 +31,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false,
             ClockSkew = TimeSpan.Zero,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("keythatneedstobechanged"))
+            IssuerSigningKey = new SymmetricSecurityKey(key)
         };
 
     });

@@ -41,7 +41,7 @@ public class WinesController : ControllerBase
     {  
         await _winesService.CreateAsync(wine);
 
-        return CreatedAtAction(nameof(GetById), new { id = wine.Id }, wine);
+        return CreatedAtAction(nameof(GetById), new { id = wine.Id }, CreateLinksForWine(wine));
     }
 
     [HttpPut("{id:length(24)}")]
@@ -79,15 +79,15 @@ public class WinesController : ControllerBase
     private Wine CreateLinksForWine(Wine wine)
     {
         wine.Links.Add(
-            new Link($"https://localhost:3000/api/user/{wine.Id}", "self", "GET" )
+            new Link($"https://localhost:3000/api/wine/{wine.Id}", "self", "GET" )
         );
         
         wine.Links.Add(
-            new Link($"https://localhost:3000/api/user/{wine.Id}", "update", "PUT" )
+            new Link($"https://localhost:3000/api/wine/{wine.Id}", "update", "PUT" )
         );
         
         wine.Links.Add(
-            new Link($"https://localhost:3000/api/user/{wine.Id}",
+            new Link($"https://localhost:3000/api/wine/{wine.Id}",
                 "delete",
                 "DELETE"));
 

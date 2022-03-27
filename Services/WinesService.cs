@@ -18,7 +18,7 @@ public class WinesService
             .GetCollection<Wine>(settings.Value.WineCollectionName);
         
         _webhooks = mongoClient.GetDatabase(settings.Value.DatabaseName)
-            .GetCollection<Webhook>("webhooks");
+            .GetCollection<Webhook>(settings.Value.WebhookCollectionName);
     }
 
     public async Task<List<Wine>> GetAsync() =>

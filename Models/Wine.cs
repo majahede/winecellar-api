@@ -9,12 +9,8 @@ namespace api_design_assignment.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-
-        public string? UserId { get; set; }
-
-        [BsonElement("Name")]
-        [JsonPropertyName("Name")]
-        public string WineName { get; set; } = null!;
+        
+        public string Name { get; set; } = null!;
 
         public decimal Price { get; set; }
 
