@@ -90,6 +90,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Login([FromBody] User user)
     {
         var token = _userService.Authenticate(user.Email, user.Password);
+
         return token == null ? Unauthorized("Wrong email or password") : Ok(new {token});
     }
     

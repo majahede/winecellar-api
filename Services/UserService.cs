@@ -32,7 +32,6 @@ public class UserService
     public async Task CreateAsync(User newUser)
     {
         await _users.InsertOneAsync(newUser);
-        
     }
     
     public async Task UpdateAsync(string id, User updatedUser) =>
