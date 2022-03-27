@@ -34,7 +34,7 @@ public class WebhookController : ControllerBase
 
         if (webhook is null)
         {
-            return NotFound($"No user with id {id} exists");
+            return NotFound($"No webhook with id {id} exists");
         }
 
         await _webhookService.RemoveAsync(webhook.Id);

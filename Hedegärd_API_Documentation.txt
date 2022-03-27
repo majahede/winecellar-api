@@ -1,0 +1,16 @@
+ GET https://winecellar-restapi.herokuapp.com/users - gets all users
+ GET https://winecellar-restapi.herokuapp.com/users/:id - gets single user
+ POST https://winecellar-restapi.herokuapp.com/users - registers a new user
+ PUT https://winecellar-restapi.herokuapp.com/users/:id - updates a single user from database
+ DELETE https://winecellar-restapi.herokuapp.com/users/:id - deletes a single user from the database
+ POST https://winecellar-restapi.herokuapp.com/users/authenticate - authenticates a user and sends a token back
+ 
+ GET https://winecellar-restapi.herokuapp.com/wines - gets all wines
+ GET https://winecellar-restapi.herokuapp.com/wines/:id - gets a single wine
+ POST https://winecellar-restapi.herokuapp.com/wines - adds a new wine to the database
+ PUT https://winecellar-restapi.herokuapp.com/wines/:id - updates a single wine from the database
+ DELETE https://winecellar-restapi.herokuapp.com/wines/:id - deletes a single wine from the database
+ 
+ GET https://winecellar-restapi.herokuapp.com/webhooks - gets all webhooks
+ POST https://winecellar-restapi.herokuapp.com/webhooks - registers a new webhook
+ DELETE https://winecellar-restapi.herokuapp.com/webhooks/:id - deletes a single webhook
