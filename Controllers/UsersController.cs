@@ -7,7 +7,7 @@ namespace api_design_assignment.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/user")]
+[Route("api/[controller]")]
 public class UserController : ControllerBase
 {
     private readonly UserService _userService;
@@ -87,11 +87,11 @@ public class UserController : ControllerBase
     [AllowAnonymous]
     [Route("authenticate")]
     [HttpPost]
-    public async Task<IActionResult> Login([FromBody] User user)
+    public Task<IActionResult> Login([FromBody] User user)
     {
         var token = _userService.Authenticate(user.Email, user.Password);
 
-        return token == null ? Unauthorized("Wrong email or password") : Ok(new {token});
+        return Task.FromResult<IActionResult>(token == null ? Unauthorized("Wrong email or password") : Ok(new {token}));
     }
     
     private User CreateLinksForUser(User user)

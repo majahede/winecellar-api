@@ -14,7 +14,6 @@ var configurationBuilder = builder.Configuration.SetBasePath(AppDomain.CurrentDo
 
 var services = builder.Services;
 
-//var settingsSection = builder.Configuration.GetSection("WineCellarDatabase");
 var settingsSection = configurationBuilder.GetSection("WineCellarDatabase");
 var connect = settingsSection.Get<WineCellarDatabaseSettings>().ConnectionString;
 
@@ -49,20 +48,17 @@ services.AddControllers()
   .AddJsonOptions(
         options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-//app.UseCors(allowedSpecificOrigins);
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
@@ -73,5 +69,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-app.MapGet("/", () => $"Welcome to this winecellar api! {connect} ");
+app.MapGet("/", () => "Welcome to this winecellar api!");
 app.Run();

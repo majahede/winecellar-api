@@ -7,7 +7,7 @@ namespace api_design_assignment.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/webhook")]
+[Route("api/[controller]")]
 public class WebhookController : ControllerBase
 {
     private readonly WebhookService _webhookService;

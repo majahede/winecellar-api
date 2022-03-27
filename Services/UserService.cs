@@ -37,7 +37,7 @@ public class UserService
     public async Task UpdateAsync(string id, User updatedUser) =>
         await _users.ReplaceOneAsync(x => x.Id == id, updatedUser);
 
-    public async Task RemoveAsync(string id) =>
+    public async Task RemoveAsync(string? id) =>
         await _users.DeleteOneAsync(x => x.Id == id);
 
     public string? Authenticate(string email, string password)
