@@ -16,8 +16,8 @@ var services = builder.Services;
 
 //var settingsSection = builder.Configuration.GetSection("WineCellarDatabase");
 var settingsSection = configurationBuilder.GetSection("WineCellarDatabase");
-//Console.WriteLine(settingsSection.Get<WineCellarDatabaseSettings>().ConnectionString);
-//Console.WriteLine(s.Get<WineCellarDatabaseSettings>().ConnectionString);
+var connect = settingsSection.Get<WineCellarDatabaseSettings>().ConnectionString;
+
 services.Configure<WineCellarDatabaseSettings>(settingsSection);
 
 var settings = settingsSection.Get<WineCellarDatabaseSettings>();
@@ -73,6 +73,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-app.MapGet("/", () => "Welcome to this winecellar api!");
-Console.WriteLine("hej");
+app.MapGet("/", () => $"Welcome to this winecellar api! {connect} ");
 app.Run();
