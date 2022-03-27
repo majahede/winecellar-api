@@ -5,10 +5,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configurationBuilder = builder.Configuration.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+    .AddJsonFile("Properties/appsettings.json")
+    .AddJsonFile($"Properties/appsettings.{builder.Environment.EnvironmentName}.json")
+    .AddEnvironmentVariables()
+    .Build();
+
 var services = builder.Services;
 
-var settingsSection = builder.Configuration.GetSection("WineCellarDatabase");
-
+//var settingsSection = builder.Configuration.GetSection("WineCellarDatabase");
+var settingsSection = configurationBuilder.GetSection("WineCellarDatabase");
+//Console.WriteLine(settingsSection.Get<WineCellarDatabaseSettings>().ConnectionString);
+//Console.WriteLine(s.Get<WineCellarDatabaseSettings>().ConnectionString);
 services.Configure<WineCellarDatabaseSettings>(settingsSection);
 
 var settings = settingsSection.Get<WineCellarDatabaseSettings>();
