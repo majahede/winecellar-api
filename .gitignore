@@ -341,6 +341,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-Properties/appsettings.Production.json
 Properties/appsettings.Development.json
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,aspnetcore
