@@ -74,4 +74,5 @@ app.UseEndpoints(endpoints =>
 });
 
 app.MapGet("/", () => "Welcome to this winecellar api!");
+Console.WriteLine("hej");
 app.Run();
