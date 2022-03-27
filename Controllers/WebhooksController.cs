@@ -26,4 +26,19 @@ public class WebhookController : ControllerBase
     
     [HttpGet]
     public async Task<List<Webhook>> GetAll() => await _webhookService.GetAllWebhooks();
+    
+    [HttpDelete("{id:length(24)}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var webhook = await _webhookService.GetAsync(id);
+
+        if (webhook is null)
+        {
+            return NotFound($"No user with id {id} exists");
+        }
+
+        await _webhookService.RemoveAsync(webhook.Id);
+
+        return NoContent();
+    }
 }

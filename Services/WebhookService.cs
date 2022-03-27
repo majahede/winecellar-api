@@ -21,6 +21,12 @@ public class WebhookService
         await _webhooks.InsertOneAsync(webhook);
     }
     
+    public async Task<Webhook?> GetAsync(string id) =>
+        await _webhooks.Find(x => x.Id == id).FirstOrDefaultAsync();
+    
     public async Task<List<Webhook>> GetAllWebhooks() =>
         await _webhooks.Find(_ => true).ToListAsync();
+    
+    public async Task RemoveAsync(string? id) =>
+        await _webhooks.DeleteOneAsync(x => x.Id == id);
 }
