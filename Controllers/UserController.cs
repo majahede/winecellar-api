@@ -18,7 +18,15 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<List<User>> GetAll() => await _userService.GetAsync();
+    public async Task<List<User>> GetAll()
+    {       
+        var users = await _userService.GetAsync();
+        
+        var linkedUsers = new List<User>();
+        users.ForEach(user => linkedUsers.Add(CreateLinksForUser(user)));
+            
+        return linkedUsers;
+    } 
     
     
     [HttpGet("{id:length(24)}", Name = nameof(GetById))]
@@ -28,7 +36,7 @@ public class UserController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NotFound($"No user with id {id} exists");
         }
         
         return Ok(CreateLinksForUser(user));
@@ -38,8 +46,9 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(User user)
     {
-        await _userService.CreateAsync(user);
 
+        await _userService.CreateAsync(user);
+        
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, CreateLinksForUser(user));
     }
 
@@ -50,7 +59,7 @@ public class UserController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NotFound($"No user with id {id} exists");
         }
 
         updatedUser.Id = user.Id;
@@ -67,7 +76,7 @@ public class UserController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NotFound($"No user with id {id} exists");
         }
 
         await _userService.RemoveAsync(user.Id);

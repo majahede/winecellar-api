@@ -29,9 +29,12 @@ public class UserService
     public async Task<User?> GetAsync(string id) =>
         await _users.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-    public async Task CreateAsync(User newUser) =>
+    public async Task CreateAsync(User newUser)
+    {
         await _users.InsertOneAsync(newUser);
-
+        
+    }
+    
     public async Task UpdateAsync(string id, User updatedUser) =>
         await _users.ReplaceOneAsync(x => x.Id == id, updatedUser);
 

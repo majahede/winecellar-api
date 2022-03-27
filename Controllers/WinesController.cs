@@ -19,8 +19,11 @@ public class WinesController : ControllerBase
     public async Task<List<Wine>> GetAll()
     {
         var wines =   await _winesService.GetAsync();
-        
-        return wines;
+
+        var linkedWines = new List<Wine>();
+        wines.ForEach(wine => linkedWines.Add(CreateLinksForWine(wine)));
+            
+        return linkedWines;
     }
 
     [HttpGet("{id:length(24)}")]
@@ -30,7 +33,7 @@ public class WinesController : ControllerBase
 
         if (wine is null)
         {
-            return NotFound();
+            return NotFound($"No wine with id {id} exists");
         }
 
         return Ok(CreateLinksForWine(wine));
@@ -51,7 +54,7 @@ public class WinesController : ControllerBase
 
         if (wine is null)
         {
-            return NotFound();
+            return NotFound($"No wine with id {id} exists");
         }
 
         updatedWine.Id = wine.Id;
@@ -68,7 +71,7 @@ public class WinesController : ControllerBase
 
         if (wine is null)
         {
-            return NotFound();
+            return NotFound($"No wine with id {id} exists");
         }
 
         await _winesService.RemoveAsync(wine.Id);

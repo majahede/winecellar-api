@@ -36,7 +36,7 @@ public class WinesService
             var url = h.Url;
             var data = JsonContent.Create(newWine);
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("secret", h.Secret);
+            client.DefaultRequestHeaders.Add("x-secret", h.Secret);
             await client.PostAsync(url, data);
         }
         await _wines.InsertOneAsync(newWine);

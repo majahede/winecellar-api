@@ -18,9 +18,10 @@ public class WebhookController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> RegisterWebhook(Webhook webhook)
     {
+
         await _webhookService.RegisterWebhook(webhook);
-        
-        return Ok("Webhook successfully registered");
+
+        return Created("Webhook was successfully registered", webhook);
     }
     
     [HttpGet]
