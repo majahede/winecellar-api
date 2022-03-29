@@ -5,6 +5,7 @@ using api_design_assignment.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using BC = BCrypt.Net.BCrypt;
 
 namespace api_design_assignment.Services;
 
@@ -31,7 +32,21 @@ public class UserService
 
     public async Task CreateAsync(User newUser)
     {
-        await _users.InsertOneAsync(newUser);
+        var user = new User()
+        {
+            Id = newUser.Id,
+            Email = newUser.Email,
+            Password =  BC.HashPassword(newUser.Password)
+        };
+        
+        var isEmailUnique = _users.Find(x => x.Email == newUser.Email).FirstOrDefault();
+
+        if (isEmailUnique == null)
+        {
+            throw new Exception("Email is already registered");
+        }
+        
+        await _users.InsertOneAsync(user);
     }
     
     public async Task UpdateAsync(string id, User updatedUser) =>
@@ -42,10 +57,17 @@ public class UserService
 
     public string? Authenticate(string email, string password)
     {
-        var user = _users.Find(x => x.Email == email && x.Password == password).FirstOrDefault();
+        
+        var user = _users.Find(x => x.Email == email).FirstOrDefault();
+
         if (user == null)
             return null;
 
+        if (BC.Verify(password, user.Password))
+        {
+            return null;
+        }
+        
         var tokenHandler = new JwtSecurityTokenHandler();
 
         var tokenKey = Encoding.ASCII.GetBytes(_key);

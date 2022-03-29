@@ -15,7 +15,6 @@ var configurationBuilder = builder.Configuration.SetBasePath(AppDomain.CurrentDo
 var services = builder.Services;
 
 var settingsSection = configurationBuilder.GetSection("WineCellarDatabase");
-var connect = settingsSection.Get<WineCellarDatabaseSettings>().ConnectionString;
 
 services.Configure<WineCellarDatabaseSettings>(settingsSection);
 
