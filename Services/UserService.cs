@@ -32,21 +32,14 @@ public class UserService
 
     public async Task CreateAsync(User newUser)
     {
-        var user = new User()
-        {
-            Id = newUser.Id,
-            Email = newUser.Email,
-            Password =  BC.HashPassword(newUser.Password)
-        };
-        
         var isEmailUnique = _users.Find(x => x.Email == newUser.Email).FirstOrDefault();
-
-        if (isEmailUnique == null)
+        
+        if (isEmailUnique != null)
         {
-            throw new Exception("Email is already registered");
+            throw new Exception("Email is already registered.");
         }
         
-        await _users.InsertOneAsync(user);
+        await _users.InsertOneAsync(newUser);
     }
     
     public async Task UpdateAsync(string id, User updatedUser) =>
@@ -60,14 +53,9 @@ public class UserService
         
         var user = _users.Find(x => x.Email == email).FirstOrDefault();
 
-        if (user == null)
-            return null;
-
-        if (BC.Verify(password, user.Password))
-        {
-            return null;
-        }
-        
+        if (user == null) throw new Exception("Wrong email or password");
+        if (!BC.Verify(password, user.Password)) throw new Exception("Wrong email or password");
+   
         var tokenHandler = new JwtSecurityTokenHandler();
 
         var tokenKey = Encoding.ASCII.GetBytes(_key);

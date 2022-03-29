@@ -2,7 +2,7 @@ using api_design_assignment.Models;
 using api_design_assignment.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using BC = BCrypt.Net.BCrypt;
 namespace api_design_assignment.Controllers;
 
 [Authorize]
@@ -44,10 +44,23 @@ public class UserController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost]
-    public async Task<IActionResult> Create(User user)
+    public async Task<IActionResult> Create(User newUser)
     {
+        var user = new User
+        {
+            Id = newUser.Id,
+            Email = newUser.Email,
+            Password =  BC.HashPassword(newUser.Password)
+        };
 
-        await _userService.CreateAsync(user);
+        try
+        {
+            await _userService.CreateAsync(user);
+        }
+        catch(Exception e)
+        {
+            return Conflict(e.Message);
+        }
         
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, CreateLinksForUser(user));
     }
@@ -89,9 +102,15 @@ public class UserController : ControllerBase
     [HttpPost]
     public Task<IActionResult> Login([FromBody] User user)
     {
-        var token = _userService.Authenticate(user.Email, user.Password);
-
-        return Task.FromResult<IActionResult>(token == null ? Unauthorized("Wrong email or password") : Ok(new {token}));
+        try
+        {
+            var token = _userService.Authenticate(user.Email, user.Password);
+            return Task.FromResult<IActionResult>(Ok(new {token}));
+        }
+        catch (Exception e)
+        {
+            return Task.FromResult<IActionResult>(Unauthorized("Wrong email or password"));
+        }
     }
     
     private User CreateLinksForUser(User user)
