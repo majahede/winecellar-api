@@ -1,0 +1,1280 @@
+{
+	"info": {
+		"_postman_id": "722a0265-08c3-4f39-9328-b58e9b24f831",
+		"name": "Winecellar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "register (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"Email\": \"maja@mail.com\", \r\n    \"Password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register, invalid email (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"Email\": \"majamail.com\", \r\n    \"Password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register, already registered(409)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"Email\": \"gustav@mail.com\", \r\n    \"Password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('has token', function() {\r",
+									"    const {token} = pm.response.json();\r",
+									"\r",
+									"    pm.environment.set('token', token)\r",
+									"    return 'token';\r",
+									"})\r",
+									"\r",
+									"const jsonData = JSON.parse(responseBody);\r",
+									"const payload = jsonData.token.split('.')[1];  // Assuming the JWT is in id_token\r",
+									"const parsed = JSON.parse(atob(payload));\r",
+									"pm.environment.set('userId', parsed.sub)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"Email\": \"maja@mail.com\", \r\n    \"Password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/authenticate",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login wrong credentials (401)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"Email\": \"maj@mail.com\", \r\n    \"Password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/authenticate",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "webhook",
+			"item": [
+				{
+					"name": "register webhook (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const {Id} = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('webhookId', Id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://webhook.site\",\r\n    \"secret\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/webhook/",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"webhook",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register webhook, no secret (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://webhook.site\",\r\n    \"secret\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/webhook/",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"webhook",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get all users (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users (401) No token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single user (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single user, not found (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/123456789112345678921234",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"123456789112345678921234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user (204)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"Email\": \"maja@mail.com\",\r\n        \"Password\": \"12345678\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user no password (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"Email\": \"maja@mail.com\",\r\n        \"Password\": \"\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "wines",
+			"item": [
+				{
+					"name": "add wine (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const {Id} = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('wineId', Id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"Name\": \"Tradition Brut\",\r\n    \"Price\": 35.50,\r\n    \"Type\": \"Sparkling\",\r\n    \"Grape\": \"Pinot Noir, Pinot Meunier\",\r\n    \"Country\": \"France\",\r\n    \"Region\": \"Champagne\",\r\n    \"Producer\": \"Tarlant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add wine (400) no grape",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"Name\": \"Tradition Brut\",\r\n    \"Price\": 35.50,\r\n    \"Type\": \"Sparkling\",\r\n    \"Country\": \"France\",\r\n    \"Region\": \"Champagne\",\r\n    \"Producer\": \"Tarlant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all wines",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all wines, unauthorized (401)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single wine (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines/{{wineId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines",
+								"{{wineId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single wine, not found (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines/623f36f5d8460072fcbe5786",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines",
+								"623f36f5d8460072fcbe5786"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update wine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"Name\": \"Tradition Brut\",\r\n    \"Price\": 30.50,\r\n    \"Type\": \"Sparkling\",\r\n    \"Grape\": \"Pinot Noir, Pinot Meunier\",\r\n    \"Country\": \"France\",\r\n    \"Region\": \"Champagne\",\r\n    \"Producer\": \"Tarlant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines/{{wineId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines",
+								"{{wineId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update wine, invalid format (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"Name\": \"Tradition Brut\",\r\n    \"Price\": \"Thirty dollars\",\r\n    \"Type\": \"Sparkling\",\r\n    \"Grape\": \"Pinot Noir, Pinot Meunier\",\r\n    \"Country\": \"France\",\r\n    \"Region\": \"Champagne\",\r\n    \"Producer\": \"Tarlant\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines/{{wineId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines",
+								"{{wineId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete wine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/api/wines/{{wineId}}",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"wines",
+								"{{wineId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete wine (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://winecellar-restapi.herokuapp.com/wines/623f36f5d8460072fcbe5786",
+							"protocol": "https",
+							"host": [
+								"winecellar-restapi",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"wines",
+								"623f36f5d8460072fcbe5786"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete webhook",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://winecellar-restapi.herokuapp.com/api/webhook/{{webhookId}}",
+					"protocol": "https",
+					"host": [
+						"winecellar-restapi",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"webhook",
+						"{{webhookId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"winecellar-restapi",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
