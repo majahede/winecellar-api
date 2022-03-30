@@ -12,7 +12,7 @@ namespace api_design_assignment.Services;
 public class UserService
 {
     private readonly IMongoCollection<User> _users;
-    private string _key;
+    private readonly string _key;
     public UserService(IOptions<WineCellarDatabaseSettings> settings)
     {
         var mongoClient = new MongoClient(
