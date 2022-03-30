@@ -305,7 +305,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"url\": \"https://webhook.site\",\r\n    \"secret\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"url\": \"https://webhook.site/b6c6a3d9-3c33-4af5-afea-d263afc2fc9b?\",\r\n    \"secret\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
