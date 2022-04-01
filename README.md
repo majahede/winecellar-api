@@ -1,5 +1,5 @@
-# Wine cellar api
-This is an api for a wine club to keep track of their mutual wine cellar.
+# Api-assignment: Wine cellar api
+This is an api for a wine club to keep track of their shared wine cellar.
 
 ## BaseUrl
 https://winecellar-restapi.herokuapp.com
@@ -14,4 +14,4 @@ newman run https://www.getpostman.com/collections/622804375667751a28c2
 
 ### By json file:
 
-newman run Winecellar.postman_collection
+newman run Winecellar.postman_collection.json
