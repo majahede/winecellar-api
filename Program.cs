@@ -68,5 +68,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-app.MapGet("/", () => "Welcome to this winecellar api!");
+app.MapGet("/api", () => "Welcome to this winecellar api!");
 app.Run();
