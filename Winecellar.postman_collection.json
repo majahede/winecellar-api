@@ -17,8 +17,7 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -28,9 +27,6 @@
 						"strictSSL": false
 					},
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -43,7 +39,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -52,7 +48,7 @@
 							],
 							"path": [
 								"api",
-								"user"
+								"users"
 							]
 						}
 					},
@@ -89,7 +85,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -98,7 +94,7 @@
 							],
 							"path": [
 								"api",
-								"user"
+								"users"
 							]
 						}
 					},
@@ -133,7 +129,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -142,7 +138,7 @@
 							],
 							"path": [
 								"api",
-								"user"
+								"users"
 							]
 						}
 					},
@@ -196,7 +192,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/authenticate",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/authenticate",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -205,7 +201,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"authenticate"
 							]
 						}
@@ -248,7 +244,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/authenticate",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/authenticate",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -257,7 +253,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"authenticate"
 							]
 						}
@@ -400,8 +396,7 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -411,19 +406,16 @@
 						"strictSSL": false
 					},
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
+								"value": "bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -432,7 +424,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								""
 							]
 						}
@@ -472,7 +464,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -481,7 +473,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								""
 							]
 						}
@@ -519,7 +511,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/{{userId}}",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -528,7 +520,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"{{userId}}"
 							]
 						}
@@ -566,7 +558,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/123456789112345678921234",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/123456789112345678921234",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -575,7 +567,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"123456789112345678921234"
 							]
 						}
@@ -622,7 +614,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/{{userId}}",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -631,7 +623,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"{{userId}}"
 							]
 						}
@@ -678,7 +670,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+							"raw": "https://winecellar-restapi.herokuapp.com/api/users/{{userId}}",
 							"protocol": "https",
 							"host": [
 								"winecellar-restapi",
@@ -687,7 +679,7 @@
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"{{userId}}"
 							]
 						}
@@ -700,7 +692,7 @@
 			"name": "wines",
 			"item": [
 				{
-					"name": "add wine (200)",
+					"name": "add wine (201)",
 					"event": [
 						{
 							"listen": "test",
@@ -710,9 +702,8 @@
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									"\r",
-									"const {Id} = pm.response.json();\r",
-									"\r",
-									"pm.environment.set('wineId', Id)"
+									"const jsonData = JSON.parse(responseBody);\r",
+									"pm.environment.set('wineId', jsonData.Id)"
 								],
 								"type": "text/javascript"
 							}
@@ -722,21 +713,17 @@
 						"strictSSL": false
 					},
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
-								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
+								"value": "bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n    \"Name\": \"Tradition Brut\",\r\n    \"Price\": 35.50,\r\n    \"Type\": \"Sparkling\",\r\n    \"Grape\": \"Pinot Noir, Pinot Meunier\",\r\n    \"Country\": \"France\",\r\n    \"Region\": \"Champagne\",\r\n    \"Producer\": \"Tarlant\"\r\n}",
+							"raw": "{\r\n    \"Name\": \"Tradition Brut\",\r\n    \"Price\": 35.50,\r\n    \"Grape\": \"Pinot Noir\",\r\n    \"Type\": \"Sparkling\",\r\n    \"Country\": \"France\",\r\n    \"Region\": \"Champagne\",\r\n    \"Producer\": \"Tarlant\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1260,7 +1247,7 @@
 					}
 				],
 				"url": {
-					"raw": "https://winecellar-restapi.herokuapp.com/api/user/{{userId}}",
+					"raw": "https://winecellar-restapi.herokuapp.com/api/users/{{userId}}",
 					"protocol": "https",
 					"host": [
 						"winecellar-restapi",
@@ -1269,7 +1256,7 @@
 					],
 					"path": [
 						"api",
-						"user",
+						"users",
 						"{{userId}}"
 					]
 				}
